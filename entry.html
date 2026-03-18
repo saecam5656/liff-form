@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>読み込み中</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+    <script>
+        async function main() {
+            try {
+                // 1. LIFFの初期化
+                const liffId = "2009477976-qneT392i";
+                await liff.init({ liffId: liffId });
+
+                if (!liff.isLoggedIn()) {
+                    // 2. 未ログインならログイン画面へ
+                    liff.login();
+                } else {
+                    // 3. ユーザープロフィールの取得
+                    const profile = await liff.getProfile();
+                    const lineName = encodeURIComponent(profile.displayName);
+                    
+                    // 4. GoogleフォームURLの構築（LINE名をパラメータにセット）
+                    const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeuRpN6l2rt5ka-UeHwGc7KKzesCwz90mK_U427A-c_D920eQ/viewform";
+                    const entryId = "entry.2092238618";
+                    const formUrl = `${baseUrl}?${entryId}=${lineName}`;
+                    
+                    // 5. フォームへリダイレクト
+                    window.location.href = formUrl;
+                }
+            } catch (error) {
+                console.error("LIFF initialization failed", error);
+            }
+        }
+        main();
+    </script>
+</body>
+</html>
