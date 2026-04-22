@@ -6,16 +6,13 @@
     <title>アンケート回答</title>
 </head>
 <body>
-    <p id="status">読み込み中...</p>
-
+    <p>フォームへ移動しています...</p>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
         async function main() {
-            const statusEl = document.getElementById('status');
             try {
-                // LIFF初期化
+                // 今回の新しいLIFF IDを指定
                 await liff.init({ liffId: "2009477976-kLspdySF" });
-                statusEl.innerText = "LINE認証中...";
 
                 if (!liff.isLoggedIn()) {
                     liff.login();
@@ -23,15 +20,13 @@
                     const profile = await liff.getProfile();
                     const lineName = encodeURIComponent(profile.displayName);
                     
-                    // 修正版URL
+                    // 【修正箇所】/d/ のあとの /e/ を削除し、リンク形式を最適化しました
                     const formUrl = "https://docs.google.com/forms/d/19S6jkaNR8h8_luTd_SckN2H48TTsMo-w4EO-v-nxN84/viewform?usp=pp_url&entry.104920594=" + lineName;
                     
-                    statusEl.innerText = "フォームへ移動します...";
                     window.location.href = formUrl;
                 }
             } catch (error) {
-                statusEl.innerText = "エラーが発生しました: " + error.message;
-                console.error(error);
+                console.error("LIFFエラー:", error);
             }
         }
         main();
