@@ -19,8 +19,8 @@
                 const profile = await liff.getProfile();
                 const lineName = encodeURIComponent(profile.displayName);
                 
-                // 【重要】ここのURLを今回のアンケートフォームのものに書き換え
-                const formUrl = "https://docs.google.com/forms/d/e/【ここにGoogleフォームの長いIDを入れる】/viewform?usp=pp_url&entry.104920594=" + lineName;
+                // 修正後のURL：IDを正しく設定し、entry.の重複を解消しました
+                const formUrl = "https://docs.google.com/forms/d/e/19S6jkaNR8h8_luTd_SckN2H48TTsMo-w4EO-v-nxN84/viewform?usp=pp_url&entry.104920594=" + lineName;
                 
                 window.location.href = formUrl;
             }
