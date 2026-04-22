@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケート回答</title>
+</head>
+<body>
+    <p>フォームへ移動しています...</p>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        async function main() {
+            // 今回の新しいLIFF IDを指定
+            await liff.init({ liffId: "2009477976-kLspdySF" });
+
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            } else {
+                const profile = await liff.getProfile();
+                const lineName = encodeURIComponent(profile.displayName);
+                
+                // 【重要】ここのURLを今回のアンケートフォームのものに書き換え
+                const formUrl = "https://docs.google.com/forms/d/e/2009477976-kLspdySF/viewform?usp=pp_url&entry.entry.104920594=" + lineName;
+                
+                window.location.href = formUrl;
+            }
+        }
+        main();
+    </script>
+</body>
+</html>
